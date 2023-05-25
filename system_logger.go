@@ -10,7 +10,7 @@ type SystemLogger struct {
 
 type Context struct {
 	RequestTime     time.Time
-	ThreadID        string `json:"_app_thread_id"`
+	RequestID       string `json:"_app_thread_id"`
 	JourneyID       string `json:"_app_journey_id"`
 	ServiceName     string `json:"_app_name"`
 	ServiceVersion  string `json:"_app_version"`

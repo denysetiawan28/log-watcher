@@ -12,7 +12,7 @@ const appLogging = "app_logging"
 func setLogData(ctx context.Context, msg string) (logRecord []zap.Field) {
 	sess := getContext(ctx)
 
-	logRecord = append(logRecord, zap.String("app_request_id", sess.ThreadID))
+	logRecord = append(logRecord, zap.String("app_request_id", sess.RequestID))
 	logRecord = append(logRecord, zap.String("app_journey_id", sess.JourneyID))
 	logRecord = append(logRecord, zap.String("message", msg))
 	logRecord = append(logRecord, zap.String("app_name", sess.ServiceName))
