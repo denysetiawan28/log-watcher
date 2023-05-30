@@ -87,6 +87,16 @@ func (d *logger) Panic(ctx context.Context, message string) {
 	d.zapLogger.Panic("|", zapLogs...)
 }
 
+func (d *logger) RequestStarted(ctx context.Context) {
+	//TODO implement me
+	zapLogs := []zap.Field{
+		zap.String("level", "info"),
+	}
+
+	zapLogs = append(zapLogs, setStartRequestLogData(ctx)...)
+	d.zapLogger.Info("|", zapLogs...)
+}
+
 func (d *logger) Close() error {
 	//TODO implement me
 	panic("implement me")

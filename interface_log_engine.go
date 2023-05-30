@@ -11,5 +11,6 @@ type ILogEngine interface {
 	Error(ctx context.Context, message string)
 	Fatal(ctx context.Context, message string)
 	Panic(ctx context.Context, message string)
+	RequestStarted(ctx context.Context)
 	Close() error
 }

@@ -39,6 +39,31 @@ func setLogData(ctx context.Context, msg string) (logRecord []zap.Field) {
 	return
 }
 
+func setStartRequestLogData(ctx context.Context) (logRecord []zap.Field) {
+	sess := getContext(ctx)
+
+	logRecord = append(logRecord, zap.String("app_request_id", sess.RequestID))
+	logRecord = append(logRecord, zap.String("app_journey_id", sess.JourneyID))
+	logRecord = append(logRecord, zap.String("message", "request started"))
+	logRecord = append(logRecord, zap.String("app_name", sess.ServiceName))
+	logRecord = append(logRecord, zap.String("app_tag", sess.Tag))
+	logRecord = append(logRecord, zap.String("app_version", sess.ServiceVersion))
+	logRecord = append(logRecord, zap.Int("app_port", sess.ServicePort))
+	logRecord = append(logRecord, zap.String("app_req_ip", sess.SrcIP))
+	logRecord = append(logRecord, zap.String("app_method", sess.ReqMethod))
+	logRecord = append(logRecord, zap.String("app_uri", sess.ReqURI))
+	logRecord = append(logRecord, zap.Any("app_req_header", nil))
+	logRecord = append(logRecord, zap.Any("app_req_body", nil))
+
+	if sess.AdditionalData != nil {
+		logRecord = append(logRecord, zap.Any("app_additional_data", sess.AdditionalData))
+	} else {
+		logRecord = append(logRecord, zap.Any("app_additional_data", nil))
+	}
+
+	return
+}
+
 // SetContext
 // This function use for set logging struct to golang context
 func SetContext(ctx context.Context, contextId string, value interface{}) context.Context {
